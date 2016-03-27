@@ -1,3 +1,18 @@
+//---------------------------------------------------------
+//	 		Library modules for general use
+//---------------------------------------------------------
+// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
+// Credits:
+//-- Some files have been taken from other authors:
+// 		ReprapPRO (large and small gears)
+//		ePoxi (https://www.thingiverse.com/thing:279973)
+//		jmgiacalone (M6-Block.stl)
+//		rowokii (https://www.thingiverse.com/thing:767317)
+//---------------------------------------------------------
+//-- Released under the terms of GNU/GPL v3.0 or higher
+//---------------------------------------------------------
+
+
 NEMA14 = 34;
 NEMA17 = 42;
 
@@ -210,13 +225,3 @@ module alu_slot(l=20,w=20,lg=30){
 }
 
 
-
-// ----------------------------------------------------
-
-
-//lewihe_play_hotbed();
-
-//NEMA14();
-//NEMA17();
-
-//alu_slot();

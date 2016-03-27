@@ -1,3 +1,16 @@
+//------------------------------------------------------------
+//-- 3D printed pieces for Huxley i3 3D printer
+//------------------------------------------------------------
+// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
+// Credits:
+//-- Some files have been taken from other authors:
+// 		ReprapPRO (large and small gears, x-carriage-1off.stl)
+//		ePoxi (https://www.thingiverse.com/thing:279973)
+//		jmgiacalone (M6-Block.stl)
+//		rowokii (https://www.thingiverse.com/thing:767317)
+//------------------------------------------------------------
+//-- Released under the terms of GNU/GPL v3.0 or higher
+//------------------------------------------------------------
 
 include <huxley_modules.scad>
 include <huxleyi3_X_axis.scad>
