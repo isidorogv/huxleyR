@@ -2,7 +2,7 @@
 
 Huxley reloaded is a remastered version of ReprapPRO Huxley 3D printer assembled with aluminum slots.
 
-![huxleyi3](pics/huxley_i3_v25.JPG)
+![huxleyi3](pics/printer/huxley_i3_v22.JPG)
 
 Openscad files are supplied in order to make your own custom adjustements.
 
@@ -15,8 +15,9 @@ Thankx to:
 
 for their respective works.
 
-Latest version is 2.5, but this work is still in progress...
+Latest version is 2.2, but this work is still in progress...
 
+Details and more info on wiki page.
 
 
 enjoy!!
