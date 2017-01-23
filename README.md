@@ -17,7 +17,9 @@ for their respective works.
 
 Latest version is 2.2, but this work is still in progress...
 
-Details and more info on wiki page.
+Details and more info on [wiki](https://github.com/isidorogv/Huxley-reloaded/wiki) page.
+
+
 
 
 enjoy!!
