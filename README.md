@@ -10,10 +10,11 @@ Thankx to...
   * ePoxi https://www.thingiverse.com/thing:279973
   * jmgiacalone (M6-Block.stl)
   * rowokii https://www.thingiverse.com/thing:767317
+  * [Francisco Malpartida](https://github.com/fmalpartida), SAV's board author. 
 
 ...for their respective works.
 
-Latest version is 2.2, but this work is still in progress...
+Latest version is 3.0. There will not be more versions except for fixing broken/malfunctioning parts
 
 Details and more info on [wiki](https://github.com/isidorogv/Huxley-reloaded/wiki) page.
 
