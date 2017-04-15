@@ -1,17 +1,3 @@
-//--------------------------------------------------------
-//-- Library modules for Huxley i3 3D printer
-//--------------------------------------------------------
-// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
-// Credits:
-//-- Some files have been taken from other authors:
-// 		ReprapPRO (large and small gears)
-//		ePoxi (https://www.thingiverse.com/thing:279973)
-//		jmgiacalone (M6-Block.stl)
-//		rowokii (https://www.thingiverse.com/thing:767317)
-//--------------------------------------------------------
-//-- Released under the terms of GNU/GPL v3.0 or higher
-//--------------------------------------------------------
-
 
 // The begining, the main piece
 // altura = height
@@ -36,6 +22,7 @@ module preform(altura, ancho, fondo, pared=2.7){
 // Where the vertical and horizontal slots are joined
 // altura = height
 // ancho = width
+// pared = wall thickness
 // perfil = slot dimensions; 20 = 20x20, 22 = 22x22 and so...
 // mtor = screw metric; 3 = M3, 4 = M4 (don't use metric higher than M3)
 module base(alto=48, pared=2.7, perfil=fondop,mtor=3){
@@ -106,14 +93,20 @@ module upper_union(largo,ancho,espesor=7){
 	difference(){
 		cube([largo,ancho,espesor]);
 		union(){
-			translate([ancho/2,ancho/2,-2])cylinder(h=10,r=2.6,$fn=30);
-			translate([ancho/2,ancho/2,3.5])cylinder(h=10,r=4.55,$fn=50);
+			translate([ancho/2,ancho/2,-2])
+                cylinder(h=10,r=2.6,$fn=30);
+			translate([ancho/2,ancho/2,3.5])
+                cylinder(h=10,r=4.55,$fn=50);
 
-			translate([3*ancho/2,ancho/2,-2])cylinder(h=10,r=2.6,$fn=30);
-			translate([3*ancho/2,ancho/2,3.5])cylinder(h=10,r=4.55,$fn=50);
+			translate([3*ancho/2,ancho/2,-2])
+                cylinder(h=10,r=2.6,$fn=30);
+			translate([3*ancho/2,ancho/2,3.5])
+                cylinder(h=10,r=4.55,$fn=50);
 
-			translate([2.5,ancho/2,-2])cylinder(h=10,r=1.6,$fn=50);
-			translate([largo-2.5,ancho/2,-2])cylinder(h=10,r=1.6,$fn=50);
+			translate([2.5,ancho/2,-2])
+                cylinder(h=10,r=1.6,$fn=50);
+			translate([largo-2.5,ancho/2,-2])
+                cylinder(h=10,r=1.6,$fn=50);
 		}
 	}
 }
@@ -193,7 +186,7 @@ module z_rod_holder(al=10, la=anchop, an=fondop){
 		translate([60,fondop/2,5])rotate([0,-90,0])
 			cylinder(h=70, r=1.6, $fn=30);
 	}
-	translate([0,fondop+pared+8,0])upper_clip(espesor=7);
+	translate([0,fondop+pared+8,0])upper_clip(ht=7);
 	// Upper cap
 	translate([0,0,10])hull(){
 		translate([0,0,0])cylinder(h=1.2, r=2.7, $fn=50);

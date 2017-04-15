@@ -1,18 +1,3 @@
-//---------------------------------------------------------
-//	 		Library modules for general use
-//---------------------------------------------------------
-// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
-// Credits:
-//-- Some files have been taken from other authors:
-// 		ReprapPRO (large and small gears)
-//		ePoxi (https://www.thingiverse.com/thing:279973)
-//		jmgiacalone (M6-Block.stl)
-//		rowokii (https://www.thingiverse.com/thing:767317)
-//---------------------------------------------------------
-//-- Released under the terms of GNU/GPL v3.0 or higher
-//---------------------------------------------------------
-
-
 NEMA14 = 34;
 NEMA17 = 42;
 
@@ -31,34 +16,75 @@ module hobbed_mk7(){
 }
 
 
+module hobbed_mk8(al=11,rd=4.5,rd2=3.5){
+
+	//color("lightgrey")
+    difference(){
+		union(){
+			cylinder(h=al-5, r=rd, $fn=20*rd);
+			translate([0,0,al-5])
+                cylinder(h=2, r1=rd, r2=rd2, $fn=20*rd);
+			translate([0,0,al-3])
+                cylinder(h=2, r1=rd2, r2=rd, $fn=20*rd);
+			translate([0,0,al-1])
+                cylinder(h=1, r=rd, $fn=20*rd);
+		}
+		translate([0,0,-5])cylinder(h=2*al, r=2.5, $fn=50);
+	}
+}
+
+
 // l = motor length
 // daxis = dual axis
-module NEMA14(l=36, daxis=false){
+module NEMA14(l=33, daxis=false){
 
-	color("black")cube([34,34,l], center=true);
-	color("white")translate([0,0,l/2])cylinder(h=2, r=11, $fn=90);
+	//color("black")
+    cube([34,34,l], center=true);
+	//color("white")
+    translate([0,0,l/2])cylinder(h=2, r=11, $fn=90);
 
 	axispos = daxis ? -(l/2)-10 : (l/2)+2;
 	axislenth = daxis ? l+32 : 20;
 
-	color("gray")translate([0,0,axispos])
+	//color("gray")
+    translate([0,0,axispos])
 		cylinder(h=axislenth, r=2.5, $fn=50);
 
 	//translate([0,0,21])hobbed_mk7();
+
+	// fixing screws
+	union(){
+		translate([-13,13,0])cylinder(h=NEMA14,r=1.5,$fn=50);
+		translate([13,13,0])cylinder(h=NEMA14,r=1.5,$fn=50);
+		translate([13,-13,0])cylinder(h=NEMA14,r=1.5,$fn=50);
+		translate([-13,-13,0])cylinder(h=NEMA14,r=1.5,$fn=50);
+	}
 }
+
 
 // l = motor length
 // daxis = dual axis
 module NEMA17(l=39, daxis=false){
 
-	color("black")cube([42,42,l], center=true);
-	color("white")translate([0,0,l/2])cylinder(h=2, r=11, $fn=90);
+	//color("black")
+    cube([42,42,l], center=true);
+	//color("white")
+    translate([0,0,l/2])cylinder(h=2, r=11, $fn=90);
 
 	axispos = daxis ? -(l/2)-10 : (l/2)+2;
 	axislenth = daxis ? l+32 : 20;
 
-	color("gray")translate([0,0,axispos])
+	//color("gray")
+    translate([0,0,axispos])
 		cylinder(h=axislenth, r=2.5, $fn=50);
+
+	// fixing screws
+	union(){
+		translate([-15.5,15.5,0])cylinder(h=NEMA17,r=1.5,$fn=50);
+		translate([15.5,15.5,0])cylinder(h=NEMA17,r=1.5,$fn=50);
+		translate([15.5,-15.5,0])cylinder(h=NEMA17,r=1.5,$fn=50);
+		translate([-15.5,-15.5,0])cylinder(h=NEMA17,r=1.5,$fn=50);
+	}
 }
 
 
@@ -94,7 +120,7 @@ module portamotor_14(ht=5){
 			translate([13,13,-2])
 				cylinder(h=ht+5,r=12,fn=60);
 			%translate([13,13,-2])
-				cylinder(h=espesor+5, r=2.6, $fn=50);
+				cylinder(h=ht+5, r=2.6, $fn=50);
 			%translate([-2.5,13,-2])cylinder(h=ht+5, r=3.2, $fn=50);
 			%translate([13,-2.5,-2])cylinder(h=ht+5, r=3.2, $fn=50);
 	}
@@ -192,36 +218,68 @@ module rounded_corner(rd=5, lg=30){
 }
 
 
-module lewihe_play_hotbed(){
+module nemacollar(hg=5){
+    
+    difference(){
 
-	difference(){
-		color("lightgreen")hull(){
-			translate([-96,96,0])cylinder(h=1.5, r=2, $fn=60);
-			translate([96,-96,0])cylinder(h=1.5, r=2, $fn=60);
-			translate([96,96,0])cylinder(h=1.5, r=2, $fn=60);
-			translate([-96,-96,0])cylinder(h=1.5, r=2, $fn=60);
-		}
-		translate([-96,96,-2])cylinder(h=5, r=1.6, $fn=60);
-		translate([96,-96,-2])cylinder(h=5, r=1.6, $fn=60);
-		translate([96,96,-2])cylinder(h=5, r=1.6, $fn=60);
-		translate([-96,-96,-2])cylinder(h=5, r=1.6, $fn=60);
-	}
+        translate([-1,-1,0])cube([22,22,hg]);
+
+        translate([0,0,-2])cylinder(h=2*hg,r=15,$fn=150);
+        translate([15.5,15.5,-2])cylinder(h=2*hg,r=1.6,$fn=60);
+        translate([25.5,11.5,-2])rotate([0,0,45])cube([20,20,2*hg]);
+    }    
 }
 
 
-module alu_slot(l=20,w=20,lg=30){
-
-
-	difference(){
-		color("lightgrey")cube([l,w,lg], center=true);
-	
-		translate([l/2,0,0])cube([5,5,lg+2], center=true);
-		translate([-l/2,0,0])cube([5,5,lg+2], center=true);
-		translate([0,w/2,0])cube([5,5,lg+2], center=true);
-		translate([0,-w/2,0])cube([5,5,lg+2], center=true);
-
-		translate([0,0,-(lg/2)-1])cylinder(h=lg+2, r=2.5, $fn=90);
-	}
+module nema17collar(h=5){
+    
+    nemacollar(hg=h);
+    mirror([1,0,0])nemacollar(hg=h);
+    mirror([0,1,0])nemacollar(hg=h);
+    mirror([1,1,0])nemacollar(hg=h);
 }
 
 
+module nema17drills(hg=5,dia=3){
+    
+    translate([15.5,15.5,-5])
+        cylinder(h=5*hg,r=(dia/2)+0.1,$fn=20*dia);
+    translate([-15.5,15.5,-5])
+        cylinder(h=5*hg,r=(dia/2)+0.1,$fn=20*dia);
+    translate([15.5,-15.5,-5])
+        cylinder(h=5*hg,r=(dia/2)+0.1,$fn=20*dia);
+    translate([-15.5,-15.5,-5])
+        cylinder(h=5*hg,r=(dia/2)+0.1,$fn=20*dia);    
+}
+
+
+module hotendhead(vinsert=true,filament=true,bcoupling=false){
+    
+    union(){
+        /*if (vinsert){
+            // The hotend head will be fixed to the extruder
+            // with a couple of M3 screws and inserted vertically
+            cylinder(h=15.25,r=8.15,$fn=50);
+        }
+        else{*/
+            // upper mount
+            translate([0,0,0])cylinder(h=5.5,r=8.15,$fn=50);
+            // neck
+            translate([0,0,5.1])cylinder(h=5.1,r=6.15,$fn=50);
+            // lower mount
+            translate([0,0,10.1])cylinder(h=5.5,r=8.15,$fn=50);
+            // This makes posible to carve a side slot
+            // in order to insert the hotend from a side,
+            // not vertically
+            /*translate([-8.15,0,0])cube([16.3,20,5.1]);
+            translate([-6.15,0,5])cube([12.3,20,5.1]);
+            translate([-8.15,0,10.1])cube([16.3,20,5.1]);
+        }*/
+        if (bcoupling){
+            cylinder(h=17.75,r=4,$fn=60);
+        }
+        // 1,75mm hole filament
+        if (filament)
+        translate([0,0,-10])cylinder(h=100,r=1.1,$fn=50);
+    }
+}

@@ -1,157 +1,3 @@
-//--------------------------------------------------------
-//-- Library modules for Huxley i3 3D printer
-//--------------------------------------------------------
-// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
-// Credits:
-//-- Some files have been taken from other authors:
-// 		ReprapPRO (large and small gears)
-//		ePoxi (https://www.thingiverse.com/thing:279973)
-//		jmgiacalone (M6-Block.stl)
-//		rowokii (https://www.thingiverse.com/thing:767317)
-//--------------------------------------------------------
-//-- Released under the terms of GNU/GPL v3.0 or higher
-//--------------------------------------------------------
-
-
-module extruder_preform(){
-	union(){
-		difference(){
-			translate([19,23.5,0])rotate([0,0,180]){
-				union(){
-					import("M6-Block.stl");
-					color("cyan")translate([55,23.5,5])
-						cylinder(r=5,h=0.3);
-					color("black")translate([68.25,8.5,11.3])
-						cylinder(r=2,h=0.3,$fn=12);
-					// we fill the old holes in order to make new ones
-					color("pink")translate([53,4,0])cube([10,5,28]);
-					translate([58.4,5,15.5])rotate([90,0,0])
-						cylinder(h=5, r=3.5, $fn=60);
-					// hotend coupling
-					color("orange")translate([46,-10,0])cube([25,12,28]);
-					// fan holder
-					translate([74,-5,12])rotate([0,0,90])difference(){
-						hull(){
-							cylinder(h=5 ,r=4, $fn=90);
-							translate([-5,3,0])cube([10,1,5]);
-						}
-						translate([0,0,-3])cylinder(h=10 ,r=1.6, $fn=60);
-					}
-					color("black")translate([74.25,-5,12])
-						cylinder(r=2,h=0.3,$fn=12);
-				}
-			}
-				// hole for the filament...
-				translate([-39.4,50,15])rotate([90,0,0])
-					cylinder(h=90, r=1.1, $fn=60);
-				// ... and the M5 pneufit
-				//translate([-39.4,27.5,15.5])rotate([90,0,0])
-				//	cylinder(h=8, r=2.5, $fn=60);
-				// some cuts on the preform left side
-				translate([-82,-6,-5])cube([30,30,50]);
-				translate([-39.5,-12,15])rotate([-90,0,0])	
-					translate([0,0,32.5])cylinder(h=15, r=8.25, $fn=90);
-				// M3 fixing screws for hotend
-				translate([-54.5,0,-28])rotate([0,90,0])union(){
-				translate([-20,28,7.2])rotate([0,-90,0])
-					cylinder(h=40, r=1.5, $fn=30);
-				translate([-20,28,22.8])rotate([0,-90,0])
-					cylinder(h=40, r=1.5, $fn=30);
-				// M3 nut holes
-				translate([-20,28,7.2])rotate([0,-90,0])
-					cylinder(h=12, r=3.1, $fn=6);
-				translate([-20,28,22.8])rotate([0,-90,0])
-					cylinder(h=12, r=3.1, $fn=6);
-				}
-		}
-	}
-}
-
-
-module geared_extruder(){
-	
-	// big wheel
-/*	%translate([23,-26.5,-5]){
-	cylinder(r=31,h=3, $fn=120);
-	#cylinder(r=1,h=5, $fn=120);
-	}
-	translate([-1,1,0])union(){
-			// little wheel
-		translate([0,0,-12]){
-			translate([0,0,6])cylinder(r=7,h=6, $fn=60);
-			cylinder(r=9,h=6, $fn=60);
-		}
-		translate([0,0,23])rotate([180,0,0])NEMA14();
-	}*/
-
-	difference(){
-		union(){
-			translate([-31.5,-56.5,0])difference(){
-				translate([20,30,0])rotate([0,0,180])extruder_preform();
-				translate([-8.4,0,-5])cube([50,60,50]);
-			}
-			// motor holder for NEMA14
-			color("pink")translate([13,-13,0])rotate([0,0,90])
-				portamotor_14();
-			translate([22,-2,0])rotate([0,0,180])rounded_corner(lg=5);
-			translate([2,-25,0])rounded_corner(rd=8, lg=5);
-		}
-			translate([-0.5,25.5,-5])hull(){
-				translate([10.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-				translate([13.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-			}
-			translate([-0.5,-0.5,-5])hull(){
-				translate([10.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-				translate([13.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-			}
-			translate([-26,-0.5,-5])hull(){
-				translate([11.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-				translate([14.5,-12.5,0])cylinder(h=15, r=1.6, $fn=60);
-			}
-			translate([14,14,-1])rounded_corner(rd=3, lg=7);
-			translate([-14,-14,-1])rotate([0,0,180])
-				rounded_corner(rd=3, lg=7);
-	}
-
-	difference(){
-		// x carriage plate joint.
-		translate([0,-25,0])union(){
-			color("cyan")translate([-5,-45.5,0])cube([5,42,35]);
-			color("lightgreen")translate([-4,-30,0])cube([20,5,28]);
-			color("lightgreen")translate([-4,-8.5,0])cube([18,5,28]);
-		}	
-		translate([0,-15,0])union(){
-			// lower fixing M3 screws and nuts
-			translate([2,-49,5])rotate([0,-90,0])
-				cylinder(h=5, r=3.2, $fn=6);
-			translate([2,-49,5])rotate([0,-90,0])
-				cylinder(h=15, r=1.5, $fn=30);
-			translate([2,-49,30])rotate([0,-90,0])
-				cylinder(h=5, r=3.2, $fn=6);
-			translate([2,-49,30])rotate([0,-90,0])
-				cylinder(h=15, r=1.5, $fn=30);
-			// upper fixing M3 screws and nuts
-			translate([2,-22,5])rotate([0,-90,0])
-				cylinder(h=5, r=3.2, $fn=6);
-			translate([2,-22,5])rotate([0,-90,0])
-				cylinder(h=15, r=1.5, $fn=30);
-			translate([2,-22,30])rotate([0,-90,0])
-				cylinder(h=5, r=3.2, $fn=6);
-			translate([2,-22,30])rotate([0,-90,0])
-				cylinder(h=15, r=1.5, $fn=30);
-			// some rounded corners
-			translate([5,-18.5,30])rotate([0,-90,0])
-				rounded_corner(rd=5, lg=15);
-			translate([-10,-50.5,30])rotate([180,-90,0])
-				rounded_corner(rd=5, lg=15);
-		}
-		// hole for wiring...
-		#translate([2,-60,23])cube([4,15,12]);
-		translate([12,-52.5,18])cylinder(h=15,r=1.2,$fn=50);
-		// ... and for a zip tie
-		translate([2,-60,3])cube([4,35,2]);
-	}
-}
 
 
 module x_motor_holder(){
@@ -285,90 +131,36 @@ module x_motor_idler(){
 
 module x_belt_tensioner(){
 
-union(){
-	difference(){
-		hull(){
-			cylinder(h=14.5, r=5, $fn=90);
-			translate([-5,0,0])cube([10,10,14.5]);
-		}
-		translate([0,0,-10])cylinder(h=30, r=1.5, $fn=90);
-		translate([-10,-12,4.25])cube([20,20,6]);
-		// para estrechar el ancho del portarodamiento
-		translate([-12,-9,-3])cube([20,20,6.5]);
-		translate([-12,-9,11])cube([20,20,6.5]);
-	}
-	difference(){
-		union(){
-			translate([0,0,9.25])cylinder(h=1.25, r1=2, r2=3.5, $fn=90);
-			translate([0,0,4])cylinder(h=1.25, r1=3.5, r2=2, $fn=90);
-		}
-		translate([0,0,-10])cylinder(h=30, r=1.5, $fn=90);
-	}
-
-	rotate([0,0,180])translate([0,-19.8,4.25])difference(){
-		translate([-5,0,0])cube([10,11,6]);
-		
-		translate([0,20,3])rotate([90,0,0])cylinder(h=30, r=1.6, $fn=60);
-		translate([-2.75,3,-2])cube([5.5,2.5,10]);
-	}
-}
-}
-
-
-// pitch = distance between theeth; T2.5 = 2.5, GT2 = 2
-// wbelt = belt thickness
-module x_carriage(pitch = 2.5, wbelt = 0.8){
-
-	// LM6UU bearing and smooth rod (lower)
-	%translate([0,8,9])rotate([0,90,0])cylinder(h=40, r=6.1, $fn=90);
-	%translate([-20,8,9])rotate([0,90,0])cylinder(h=80, r=3, $fn=90);
-	// LM6UU bearing and smooth rod (upper)
-	//%translate([0,38,9])rotate([0,90,0])cylinder(h=40, r=6.1, $fn=90);
-	//%translate([-20,38,9])rotate([0,90,0])cylinder(h=80, r=3, $fn=90);
-
-	difference(){
-		union(){
-			difference(){
-				// old huxley carriage, by ReprapPRO team
-				import("x-carriage-1off.stl");
-			
-				translate([-10,16.7-wbelt,4])cube([60,2,15]);
-				translate([-10,35,-5])cube([60,60,35]);
-			}
-			color("pink")for (i=[0:15]) {
-		    	translate([0+pitch*i, 16.7, 3]) cube([1, 1.5, 12]);  
-			}
-			translate([40,48,0])rotate([0,0,180])carriage_bearing_holder();
-			color("orange")translate([0,46.1,0])cube([40,5,15]);
-		}
-		// M3 screw holes 
-		translate([7.5,22,-5])cylinder(h=25, r=1.6, $fn=60);
-		translate([32.5,22,-5])cylinder(h=25, r=1.6, $fn=60);
-		translate([7.5,48.5,-5])cylinder(h=25, r=1.6, $fn=60);
-		translate([32.5,48.5,-5])cylinder(h=25, r=1.6, $fn=60);
-		// M3 screw heads
-		translate([7.5,22,-3])cylinder(h=5, r=3.2, $fn=90);
-		translate([32.5,22,-3])cylinder(h=5, r=3.2, $fn=90);
-		translate([7.5,48.5,-3])cylinder(h=5, r=3.2, $fn=90);
-		translate([32.5,48.5,-3])cylinder(h=5, r=3.2, $fn=90);
-		// Some rounded corners
-		translate([35,46.1,-10])rounded_corner();
-		translate([5,46.1,-10])rotate([0,0,90])rounded_corner();
-	}
-}
-
-
-module carriage_bearing_holder(){
-
-	difference(){
-		// old huxley carriage, by ReprapPRO team
-		import("x-carriage-1off.stl");
-	
-		translate([-10,16.2,-4]) cube([60,60,25]);
-	}
-	// LM6UU bearing and smooth rod
-	%translate([0,8,9])rotate([0,90,0])cylinder(h=40, r=6.1, $fn=90);
-	%translate([-20,8,9])rotate([0,90,0])cylinder(h=80, r=3, $fn=90);
+    union(){
+        difference(){
+            hull(){
+                cylinder(h=14.5, r=5, $fn=90);
+                translate([-5,0,0])cube([10,10,14.5]);
+            }
+            translate([0,0,-10])cylinder(h=30, r=1.5, $fn=90);
+            translate([-10,-12,4.25])cube([20,20,6]);
+            // para estrechar el ancho del portarodamiento
+            translate([-12,-9,-4])cube([20,20,6.5]);
+            translate([-12,-9,12])cube([20,20,6.5]);
+        }
+        difference(){
+            union(){
+                translate([0,0,9.25])
+                    cylinder(h=1.25, r1=2, r2=3.5, $fn=90);
+                translate([0,0,4])
+                    cylinder(h=1.25, r1=3.5, r2=2, $fn=90);
+            }
+            translate([0,0,-10])cylinder(h=30, r=1.5, $fn=90);
+        }
+    
+        rotate([0,0,180])translate([0,-19.8,4.25])difference(){
+            translate([-5,0,0])cube([10,11,6]);
+            
+            translate([0,20,3])rotate([90,0,0])
+                cylinder(h=30, r=1.6, $fn=60);
+            translate([-2.75,3,-2])cube([5.5,2.5,10]);
+        }
+    }
 }
 
 

@@ -1,16 +1,3 @@
-//--------------------------------------------------------
-//-- Library modules for Huxley i3 3D printer
-//--------------------------------------------------------
-// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
-// Credits:
-//-- Some files have been taken from other authors:
-// 		ReprapPRO (large and small gears)
-//		ePoxi (https://www.thingiverse.com/thing:279973)
-//		jmgiacalone (M6-Block.stl)
-//		rowokii (https://www.thingiverse.com/thing:767317)
-//--------------------------------------------------------
-//-- Released under the terms of GNU/GPL v3.0 or higher
-//--------------------------------------------------------
 
 
 // perfil = slot dimensions; 20 = 20x20, 22 = 22x22 and so...
@@ -26,7 +13,8 @@ module foot(perfil = fondop){
 		// beveled corners
 		translate([-5,55,7])rotate([45,0,0])cube([45,45,45]);
 		translate([2*perfil,-5,12])rotate([0,-50,0])cube([45,45,45]);	
-		translate([2*perfil,1.2*perfil,-5])rotate([0,0,45])cube([45,45,45]);	
+		translate([2*perfil,1.2*perfil,-5])rotate([0,0,45])
+            cube([45,45,45]);	
 		// drills for fixing screws
 		translate([(perfil/2)+2.5,43-(perfil+2.5)+15,-5])
 			cylinder(h=10, r=1.6, $fn=50);
@@ -51,35 +39,35 @@ module foot(perfil = fondop){
 
 
 
-// espesor = piece height (here we have no wall thickness)
+// hg = piece height (here we have no wall thickness)
 // perfil = slot dimensions; 20 = 20x20, 22 = 22x22 and so...
-module y_motor_holder(espesor=7, perfil=fondop){
+module y_motor_holder(hg=7, perfil=fondop){
 
-	portamotor_14(ht=espesor);
+	portamotor_14(ht=hg);
 
 	// fake aluminum slot
 	// translate([2,-26,0])color("grey")cube([fondop,fondop,10]);
 
-	translate([-0.6,(-perfil/2)-4,espesor/2])rotate([0,90,0])
+	translate([-0.6,(-perfil/2)-4,hg/2])rotate([0,90,0])
 		difference(){
 			hull(){
-				translate([-espesor/2,0,0])cube([espesor,perfil/2,2.5]);
-				cylinder(h=2.5, r=espesor/2, $fn=60);
+				translate([-hg/2,0,0])cube([hg,perfil/2,2.5]);
+				cylinder(h=2.5, r=hg/2, $fn=60);
 			}
 		translate([0,0,-2])cylinder(h=10, r=1.6, $fn=60);
 	}
-	translate([perfil-0.5+2.5,(-perfil/2)-4,espesor/2])rotate([0,90,0])
+	translate([perfil-0.5+2.5,(-perfil/2)-4,hg/2])rotate([0,90,0])
 		difference(){
 			hull(){
-				translate([-espesor/2,0,0])cube([espesor,perfil/2,2.5]);
-				cylinder(h=2.5, r=espesor/2, $fn=60);
+				translate([-hg/2,0,0])cube([hg,perfil/2,2.5]);
+				cylinder(h=2.5, r=hg/2, $fn=60);
 			}
 		translate([0,0,-2])cylinder(h=10, r=1.6, $fn=60);
 	}
 	color("cyan")translate([-0.46,-7.55,0])rotate([0,0,45])
-		cube([3,5,espesor]);
+		cube([3,5,hg]);
 	color("cyan")translate([perfil+2.35,-5.4,0])rotate([0,0,-45])
-		cube([3,5,espesor]);
+		cube([3,5,hg]);
 
 }
 
@@ -98,8 +86,10 @@ module y_bearing_idler(){
 		}
 		difference(){
 			union(){
-				translate([0,0,9.25])cylinder(h=1.25, r1=2, r2=3.5, $fn=90);
-				translate([0,0,4])cylinder(h=1.25, r1=3.5, r2=2, $fn=90);
+				translate([0,0,9.25])
+                    cylinder(h=1.25, r1=2, r2=3.5, $fn=90);
+				translate([0,0,4])
+                    cylinder(h=1.25, r1=3.5, r2=2, $fn=90);
 			}
 			translate([0,0,-10])cylinder(h=30, r=1.5, $fn=90);
 		}
@@ -138,53 +128,30 @@ module y_smooth_rod_holder(perfil=fondop){
 
 
 
-// adjustement piece for Y end stop (piece 1)
-module y_endstop_adj(){
-
-	difference(){
-		rotate([90,0,0])union(){
-			difference(){
-				union(){
-					cylinder(h=5, r=4, $fn=80);
-					translate([-5.5,-4,0])cube([5.5,8,5]);
-				}			
-				translate([0,0,-3])cylinder(h=10, r=1.6, $fn=50);
-			}		
-			translate([-15.5,-4,-13])cube([10,8,18]);
-			translate([-5.5,0,-13])rotate([0,-90,0])
-				cylinder(h=10,r=4,$fn=80);
-		}	
-		translate([0,13,0])rotate([0,-90,0])
-			cylinder(h=20,r=1.6,$fn=80);
-		translate([-12,10.25,-7])cube([3,10,15]);
-		translate([-10.5,0,-5])rotate([0,0,180])rounded_corner();
-	}
-
-}
-
-
-
-
 module y_bearing_holder(){
 
 	difference(){
 		union(){			
 			translate([0,0,-2])hull(){
 				translate([0,0,-7.7])cube([13.5,16.5,5]);
-				translate([12.15,22.25,-7.7])cylinder(h=5,r=5,$fn=60);
+				translate([12.15,22.25,-7.7])
+                    cylinder(h=5,r=5,$fn=60);
 			}
 			
 			translate([0,0,-2])hull(){
 				translate([54.8,0,-7.7])cube([13.5,16.5,5]);
-				translate([56.15,22.25,-7.7])cylinder(h=5,r=5,$fn=60);
+				translate([56.15,22.25,-7.7])
+                    cylinder(h=5,r=5,$fn=60);
 			}
 			
 			color("cyan")translate([0,-1.50,-7]){
 				translate([0,-1,-2.7])cube([68.3,18.5,5]);
 			}
 			// LM6UU bearing clamps
-			color("orange")translate([3.3,-2.5,-4.7])cube([15,18.5,4.75]);
-			color("orange")translate([49.8,-2.5,-4.7])cube([15,18.5,4.75]);
+			color("orange")translate([3.3,-2.5,-4.7])
+                cube([15,18.5,4.75]);
+			color("orange")translate([49.8,-2.5,-4.7])
+                cube([15,18.5,4.75]);
 		}
 
 		translate([78.3,15.25,0])union(){
@@ -227,6 +194,7 @@ module y_bearing_holder(){
 }
 
 
+
 module heatbed_wire_fastener(){
 
 	difference(){
@@ -256,3 +224,35 @@ module heatbed_wire_fastener(){
 
 }
 
+
+
+// adjustement piece for Y end stop (piece 1)
+module y_endstop_adj(){
+    difference(){
+        
+        union(){
+            cylinder(h=3,r=5,$fn=60);
+            translate([0,-5,0])cube([14,10,3]);
+        }
+        hull(){
+            
+            translate([-1,0,-2])cylinder(h=10,r=1.6,$fn=60);
+            translate([3,0,-2])cylinder(h=10,r=1.6,$fn=60);
+            
+        }
+    }
+    
+    translate([14,0,-13])rotate([0,90,0])difference(){
+        
+        hg=16;
+        
+        union(){
+            cylinder(h=hg,r=5,$fn=60);
+            translate([-16,-5,0])cube([16,10,hg]);
+        }
+        
+        translate([-6,-10,hg-6.5])cube([6,20,3]);
+        translate([-3,0,-5])cylinder(h=2*hg,r=1.6,$fn=60);
+        translate([-32,-10,18])rotate([0,45,0])cube([20,20,40]);
+    }
+}

@@ -1,22 +1,11 @@
-//------------------------------------------------------------
-//-- 3D printed pieces for Huxley i3 3D printer
-//------------------------------------------------------------
-// (c) 2016 Isidoro Gayo Vélez (isidoro.gayo@wanadoo.es)
-// Credits:
-//-- Some files have been taken from other authors:
-// 		ReprapPRO (large and small gears, x-carriage-1off.stl)
-//		ePoxi (https://www.thingiverse.com/thing:279973)
-//		jmgiacalone (M6-Block.stl)
-//		rowokii (https://www.thingiverse.com/thing:767317)
-//------------------------------------------------------------
-//-- Released under the terms of GNU/GPL v3.0 or higher
-//------------------------------------------------------------
 
 include <huxley_modules.scad>
 include <huxleyi3_X_axis.scad>
 include <huxleyi3_Y_axis.scad>
 include <huxleyi3_Z_axis.scad>
 include <huxleyi3_misc.scad>
+include <huxleyi3_extruder.scad>
+include <SAV-MKI_Box_MOD.scad>
 
 
 // Parameters to modify. 
@@ -42,20 +31,15 @@ wall_thickness = 2;
 
 // -------- X axis --------
 
-//mirror([1,0,0])geared_extruder();
+//x_carriage(dejes=30);
 
-x_carriage();
-
-//x_endstop_adj();
-
-// NEMA14-17 steppers are test pieces, don't print them
-//translate([-55,45,21])rotate([90,0,0])NEMA14();
-//translate([-55,45,21])rotate([90,0,0])NEMA17();
-//translate([-80,0,0])x_motor_holder();
+translate([-80,0,0])x_motor_holder();
 
 //mirror([1,0,0])translate([-100,0,0])x_motor_idler();
 
 //translate([20,-15,5])rotate([0,90,90])x_belt_tensioner();
+
+//x_endstop_adj(dejes=30);
 
 
 // -------- Y axis --------
@@ -67,7 +51,10 @@ x_carriage();
 
 //rotate([0,90,0])y_bearing_idler();
 
-//y_motor_holder(espesor=10);
+//y_bearing_holder();
+//mirror([0,1,0])y_bearing_holder();
+
+//y_motor_holder(hg=10);
 
 //y_smooth_rod_holder();
 //translate([0,15,0])y_smooth_rod_holder();
@@ -94,9 +81,21 @@ x_carriage();
 //mirror([1,0,0])z_rod_holder();
 
 
+// -------- Direct Extruder --------
+
+//extruder();
+//rotate([0,180,0])extruder(showmount=true);
+
+//translate([0,0,15])extruder_holder(erods=true);
+
+//mirror()idler();
+//fan_pipe(isize=8);
+
+//rotate([90,0,0])fan_nozzle();
+
+
 // -------- Miscelaneous --------
 
-//ramps_holder();
 //rotate([0,0,90])psu_holder();
 
 // Spool holder, you'll need:
@@ -121,3 +120,34 @@ x_carriage();
 
 //endstop_head_adj();
 
+//rotate([0,0,90])boardBox();
+//rotate([0,0,90])boxLid();
+
+
+// --------- Full Model Extruder ----------
+
+// Don't print that, only for showing pourposes
+
+/*
+rotate([90,0,0])union(){
+    %translate([(NEMA17/2)-1,74,57])rotate([0,180,0])hobbed_mk8();
+    %translate([(NEMA17/2)-1,74,21])NEMA17();
+    
+    x_carriage(dejes=30);
+    
+    color("lightblue")translate([0,0,15])extruder_holder(erods=true);
+    
+    translate([18.5,75,59])rotate([180,0,-85])mirror()idler();
+    
+    color("lightgreen"){
+        extruder();
+        extruder(showmount=true);
+    }
+    
+    color("maroon")translate([41,13,59.5])rotate([-90,0,0])union(){
+    
+        translate([2,0,0])fan_pipe(isize=8);
+        translate([4,2,-2])fan_nozzle();
+    }
+}
+*/
