@@ -1,11 +1,11 @@
 
 include <lib/huxley_modules.scad>
-include <huxleyi3_X_axis.scad>
-include <huxleyi3_Y_axis.scad>
-include <huxleyi3_Z_axis.scad>
-include <huxleyi3_misc.scad>
-include <huxleyi3_extruder.scad>
-include <SAV-MKI_Box_MOD.scad>
+include <lib/huxleyi3_X_axis.scad>
+include <lib/huxleyi3_Y_axis.scad>
+include <lib/huxleyi3_Z_axis.scad>
+include <lib/huxleyi3_misc.scad>
+include <lib/huxleyi3_extruder.scad>
+include <lib/SAV-MKI_Box_MOD.scad>
 
 
 // Parameters to modify. 
