@@ -1,5 +1,5 @@
 
-include <huxley_modules.scad>
+include <lib/huxley_modules.scad>
 include <huxleyi3_X_axis.scad>
 include <huxleyi3_Y_axis.scad>
 include <huxleyi3_Z_axis.scad>
@@ -31,9 +31,9 @@ wall_thickness = 2;
 
 // -------- X axis --------
 
-//x_carriage(dejes=30);
+x_carriage(dejes=30);
 
-translate([-80,0,0])x_motor_holder();
+//translate([-80,0,0])x_motor_holder();
 
 //mirror([1,0,0])translate([-100,0,0])x_motor_idler();
 
@@ -92,6 +92,8 @@ translate([-80,0,0])x_motor_holder();
 //fan_pipe(isize=8);
 
 //rotate([90,0,0])fan_nozzle();
+
+//knob(altura=5,radio=5,paso=40);
 
 
 // -------- Miscelaneous --------

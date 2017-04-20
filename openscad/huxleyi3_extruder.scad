@@ -226,7 +226,7 @@ module extruder(showmount=false){
 
 // Support for an axial fan (diameter 45 mm)
 // isize = inductive diameter, default for a M8 inductive
-module fan_pipe(l=45,isize=10){
+module fan_pipe(l=45,isize=8){
     
     difference(){
         union(){
@@ -257,23 +257,25 @@ module fan_pipe(l=45,isize=10){
                             cube([1,isize+4,10]);
                         cylinder(h=10,r=(isize+4)/2,$fn=80);
                     }
-                    // inductive clamp
-                    translate([(isize/2),-(isize/2)+2,0])
-                            cube([8,4,10]);
+                    translate([isize/2,-2,0])difference(){
+                        // inductive clamp
+                        cube([8,4,10]);
+                    
+                        // M3 drill to get the slot tight
+                        translate([5,10,5])rotate([90,0,0])
+                            cylinder(h=20,r=1.6,$fn=60);
+                        // rounded corners in inductive clamp
+                        translate([3,6,5])rotate([90,0,0])
+                            rounded_corner(lg=10);
+                        translate([3,6,5])rotate([90,90,0])
+                            rounded_corner(lg=10);
+                    }
                 }
                 // internal hole for inductive sensor
                 translate([0,0,-5])
                     cylinder(h=25,r=(isize/2)+0.1,$fn=60);
                 // adjustement slot
                 translate([0,-0.5,-5])cube([2*isize,1,25]);
-                // M3 drill to get the slot tight
-                translate([8,10,5])rotate([90,0,0])
-                    cylinder(h=20,r=1.6,$fn=60);
-                // rounded corners in inductive clamp
-                translate([7,6,5])rotate([90,0,0])
-                    rounded_corner(lg=10);
-                translate([7,6,5])rotate([90,90,0])
-                    rounded_corner(lg=10);
             }
         }
         // taladro tornillo fijador superior
