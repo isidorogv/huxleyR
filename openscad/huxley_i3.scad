@@ -1,21 +1,44 @@
+//---------------------------------------------------------------
+//-- 3D printed pieces for Huxley i3 3D printer
+//---------------------------------------------------------------
+// (c) 2016-2019 Isidoro Gayo Vélez (isidoro.gayo@gmail.com)
+// Credits:
+//-- Some files have been taken from other authors:
+//      ffleurey (https://www.thingiverse.com/thing:148358)
+//---------------------------------------------------------------
+//-- Released under the terms of GNU/GPL v3.0 or higher
+//---------------------------------------------------------------
 
-include <lib/huxley_modules.scad>
-include <lib/huxleyi3_X_axis.scad>
-include <lib/huxleyi3_Y_axis.scad>
-include <lib/huxleyi3_Z_axis.scad>
-include <lib/huxleyi3_misc.scad>
-include <lib/huxleyi3_extruder.scad>
-include <lib/SAV-MKI_Box_MOD.scad>
+include <lib/core.scad>
+include <lib/X_axis.scad>
+include <lib/Y_axis.scad>
+include <lib/Z_axis.scad>
+include <lib/misc.scad>
+include <lib/extruder.scad>
 
 
 // Parameters to modify. 
 // Try to NOT modify variables in other places.
-fondop = 22;		// aluminum slot width
-anchop = 2*fondop;	// aluminum slot lenght
+NEMA14=34;      // NEMA14 width in mm
+NEMA17=42;      // NEMA17 width in mm
+wslot = 22;		// aluminum slot width (wslot)
+lslot = 2*wslot;	// aluminum slot lenght (lslot)
 altop = 20;			// preform height
-pared = 6;			// wall thickness
+thwall = 3;			// wall thickness (thwall)
+footl=2.5*wslot;// foot lenght
+ease=0.2;       // clearance to fit the aluminum profile easier
+stepper=17;     // type of stepper motor;e.g. 14 = NEMA14, and so...
 
+// Frog for mini heatbed by F. Malpartida
+lfrog=132;          // frog dimension from left to right in mm
+wfrog=70;           // frog dimension from back to front in mm
+rlm6=6;             // LM6 bearing radius (rbearing)
+llm6=20;            // LM6 lenght (lbearing)
+rrod=3;         // smooth rod radius in mm
+drod=130;       // distance between Y rods in mm
+bhole=95.25/2;      // M3 hole distance from bed center
 
+// Power supply values
 PSU_footprint_width = 98;
 PSU_footprint_height = 40;
 height_from_base = 70;
@@ -26,130 +49,139 @@ IEC_heigth = 20;
 switch_width = 19;
 switch_height = 13;
 
-wall_thickness = 2;
+// Board case
+blen=110;       // board lenght in mm
+bwit=80;        // board widht in mm
+offscrew=3.5;   // offset for board fixing screws
 
+$fn = 50;
 
 // -------- X axis --------
 
-x_carriage(dejes=30);
+x_carriage(daxis=32);
 
-//translate([-80,0,0])x_motor_holder();
+//translate([-80,0,0])
+    //x_motor_holder(th=6);
 
-//mirror([1,0,0])translate([-100,0,0])x_motor_idler();
+/*
+mirror([1,0,0])
+translate([52,55,0])
+rotate([0,0,180])
+    x_motor_idler();
+*/
 
-//translate([20,-15,5])rotate([0,90,90])x_belt_tensioner();
+// this is a belt tensioner
+//translate([25,29,21])
+//rotate([90,0,180])
+  //  x_bearing_holder(span=13);
 
-//x_endstop_adj(dejes=30);
+//translate([0,20,0])
+//    knob(thk=6,dia=18,nk=16,dk=1.5,f=8);
+
+// adjustable endstop head
+//knob(dia=12,spc=true,thk=3,dk=2,nk=14);
+//x_endstop_holder();
+
 
 
 // -------- Y axis --------
 
-//foot();
-//translate([-5,0,0])mirror([1,0,0])foot();
-//translate([0,-5,0])mirror([0,1,0])foot();
-//translate([-5,-5,0])mirror([1,0,0])mirror([0,1,0])foot();
+// Feet pieces must be printed twice!!
+//mirror([1,0,0])
+  //  foot();
 
-//rotate([0,90,0])y_bearing_idler();
+//translate([-25,0,0])
+    //y_bearing_idler();
 
-//y_bearing_holder();
-//mirror([0,1,0])y_bearing_holder();
+//y_motor_holder(hg=10,th=10,stepper=17);
 
-//y_motor_holder(hg=10);
-
+// Print four times the following piece
 //y_smooth_rod_holder();
-//translate([0,15,0])y_smooth_rod_holder();
-//translate([30,0,0])y_smooth_rod_holder();
-//translate([30,15,0])y_smooth_rod_holder();
 
+// Y endstop adjustement, print just one
+//knob(dia=12,spc=true,thk=3,dk=2,nk=14);
+
+//rotate([0,90,0])
+  //  heatbed_wire_fastener();
+
+//frog();
+
+//y_belt_clamp();
+
+// Thumb wheel (print four times!)
+//rotate([180,0,0])
+  //  knob(dia=8,thk=3,nk=10,dk=3,f=6,spc=false);
+
+// endstop holder
 //y_endstop_adj();
-
-//rotate([0,90,0])heatbed_wire_fastener();
 
 
 // -------- Z axis --------
 
+// Print twice base piece!!
 //base();
-//translate([0,70,0])base();
 
-//translate([0,10,0])z_motor_holder();
-//mirror([0,1,0])z_motor_holder();
+//mirror([0,1,0])
+  //  z_motor_holder(stepper=17);
 
-//upper_union(largo=anchop,ancho=fondop);
-//translate([0,-30,0])upper_union(largo=anchop,ancho=fondop);
+// Print twice upper_union piece!!
+//upper_union(largo=wslot,ancho=lslot,thick=7.5);
 
-//translate([10,0,0])z_rod_holder();
-//mirror([1,0,0])z_rod_holder();
+// Print twice slot lid piece!!
+//z_slot_lid(th=thwall);
+
+
 
 
 // -------- Direct Extruder --------
 
 //extruder();
-//rotate([0,180,0])extruder(showmount=true);
 
-//translate([0,0,15])extruder_holder(erods=true);
+//translate([0,0,15])
+  //  extruder_holder();
 
-//mirror()idler();
-//fan_pipe(isize=8);
+//mirror()
+    //extruder_idler();
 
-//rotate([90,0,0])fan_nozzle();
+// Default diameter for inductive 
+// sensor is M8. For other sensor sizes
+// set isize variable to 12 (M12) and so...
+//fan_pipe(l=40);
 
-//knob(altura=5,radio=5,paso=40);
+//rotate([90,0,0])
+  //  fan_nozzle();
+
+//rotate([180,0,0])
+  //  knob(dia=10,nk=8,thk=5,mt=4,dk=2,spc=false);
+
 
 
 // -------- Miscelaneous --------
 
-//rotate([0,0,90])psu_holder();
+//rotate([0,0,90])
+    //psu_holder(wth=2);
 
-// Spool holder, you'll need:
-//		foot() - x4
-//		slot_holder_cross() - x2
-//		upper_crow() - x2
-//		slot_clamp() - x18	
-//		M3 screws - x18
-//		M3 nut - x18
-//		M8 threaded rod - 16 or 17cm
-//		SpoolHolder_Prusai3.stl - x2
-//		608ZZ bearing - x2
-//		M8 nut - x2
-//spool_holder_cross();
-//spool_upper_crow();
+//rotate([0,180,0])
+  //  spool_holder_arm();
+//spool_holder_clamp();
+//knob(dia=45,thk=10,nk=20,dk=6,mt=8);
 
-//guardacable(longitud=30);
+//rotate([90,0,0])
+  //  psufastener();
 
-//rotate([90,0,0])psufastener();
-
-//slot_clamp();
-
-//endstop_head_adj();
-
-//rotate([0,0,90])boardBox();
-//rotate([0,0,90])boxLid();
-
-
-// --------- Full Model Extruder ----------
-
-// Don't print that, only for showing pourposes
+// case for GT2560 A+
+//board_case();
 
 /*
-rotate([90,0,0])union(){
-    %translate([(NEMA17/2)-1,74,57])rotate([0,180,0])hobbed_mk8();
-    %translate([(NEMA17/2)-1,74,21])NEMA17();
-    
-    x_carriage(dejes=30);
-    
-    color("lightblue")translate([0,0,15])extruder_holder(erods=true);
-    
-    translate([18.5,75,59])rotate([180,0,-85])mirror()idler();
-    
-    color("lightgreen"){
-        extruder();
-        extruder(showmount=true);
-    }
-    
-    color("maroon")translate([41,13,59.5])rotate([-90,0,0])union(){
-    
-        translate([2,0,0])fan_pipe(isize=8);
-        translate([4,2,-2])fan_nozzle();
-    }
-}
-*/
+translate([1.5*bwit,0,0])
+color("lightgrey")
+translate([0,0,42])
+rotate([0,180,0])*/
+ //   case_lid();
+
+//arm_holder();
+
+//filament_holder_2();
+
+//cable_guard();
+
