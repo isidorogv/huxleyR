@@ -147,7 +147,7 @@ module x_bearing_holder(span=13){
         translate([-4,-3.4,0])
         linear_extrude(height=span)
         offset(delta=2,chamfer=true)
-            square([16,6.8]);
+            square([16,7]);
         
         // room for synchronic bearing
         translate([-12,-10,(span-9)/2])

@@ -94,7 +94,7 @@ module portamotor_14(ht=5){
 			translate([13,13,-2])
 				cylinder(h=ht+5,r=12,fn=60);
 			%translate([13,13,-2])
-				cylinder(h=espesor+5, r=2.6, $fn=50);
+				cylinder(h=ht+5, r=2.6, $fn=50);
 			%translate([-2.5,13,-2])cylinder(h=ht+5, r=3.2, $fn=50);
 			%translate([13,-2.5,-2])cylinder(h=ht+5, r=3.2, $fn=50);
 	}

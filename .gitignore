@@ -1,0 +1,8 @@
+/tmp
+/PoC
+/testing
+/deprecated
+/stl/*.png
+/step/*.png
+*.FCStd1
+*.fcstd1
