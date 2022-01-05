@@ -1,8 +1,8 @@
-/tmp
-/PoC
-/testing
-/deprecated
-/stl/*.png
-/step/*.png
+tmp/
+freecad/
+PoC/
+deprecated/
+stl/*.png
+step/*.png
 *.FCStd1
 *.fcstd1
