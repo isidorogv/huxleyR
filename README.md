@@ -4,7 +4,7 @@
 
 ![Huxley i3 v.3.0](pics/huxley_i3_v31.JPG)
 
-Openscad files are supplied in order to make your own custom adjustements.
+Since version 3.0, migration from openscad to freecad have been started. STL and STEP files are supplied in order to allow you to make your own adjustements.
 
 Thankx to...
 
@@ -13,13 +13,12 @@ Thankx to...
 
 ...for their respective works.
 
+
+Wiki page will not be available anymore but assembly instructions will be supplied as PDF guide.
+
 **Latest version is 3.1.**
 
-Documentation will be uploaded at the wiki asap!.
-
-
-Details and more info on [wiki](https://github.com/isidorogv/Huxley-reloaded/wiki) page.
-
+Version 3.2 is comming!!
 
 
 enjoy!!
