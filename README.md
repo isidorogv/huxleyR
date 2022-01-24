@@ -2,7 +2,7 @@
 
 **Huxley reloaded** is a remastered version of ReprapPRO Huxley 3D printer assembled with aluminium slots.
 
-![Huxley i3 v.3.0](pics/huxley_i3_v31.JPG)
+![Huxley i3 v.3.0](pics/huxley-i3-v32.jpg)
 
 Since version 3.0, migration from openscad to freecad have been started. STL and STEP files are supplied in order to allow you to make your own adjustements.
 
