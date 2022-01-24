@@ -10,7 +10,7 @@ Thankx to...
 
   * [rowokii](https://www.thingiverse.com/thing:767317), parametric universal spool holder.
   * [Francisco Malpartida](https://github.com/fmalpartida), mini heatbed's board author. 
-
+* [Campy3D](https://www.thingiverse.com/thing:2915718), LCD MKS Mini 12864 Mount Enclosure Box.
 ...for their respective works.
 
 
