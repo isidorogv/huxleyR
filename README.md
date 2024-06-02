@@ -1,6 +1,6 @@
 # What's that?
 
-**Huxley reloaded** is a remastered version of ReprapPRO Huxley 3D printer assembled with aluminium slots.
+**Huxley reloaded** is a remastered version of ReprapPRO Huxley 3D printer assembled with 22x22 and 22x44 aluminium slots.
 
 Since version 3.0, migration from openscad to freecad have been started. STL and STEP files are supplied in order to allow you to make your own adjustements.
 
